@@ -9,7 +9,7 @@ import "@zetachain/protocol-contracts/contracts/zevm/interfaces/IWZETA.sol";
 import "@zetachain/toolkit/contracts/OnlySystem.sol";
 import "@zetachain/toolkit/contracts/shared/libraries/UniswapV2Library.sol";
 
-contract SwapToAnyToken is zContract, OnlySystem {
+contract SwapToAnyTokenDirectly is zContract, OnlySystem {
     SystemContract public systemContract;
 
     uint256 constant BITCOIN = 18332;
@@ -70,8 +70,8 @@ contract SwapToAnyToken is zContract, OnlySystem {
 
         uint256 amountIn = params.withdraw ? amount - inputForGas : amount;
         uint256 minOutAmount = getMintOutAmount(zrc20, params.target, amountIn);
-        
-        uint256 outputAmount = SwapHelperLib.swapExactTokensForTokens(
+
+        uint256 outputAmount = SwapHelperLib.swapExactTokensForTokensDirectly(
             systemContract,
             zrc20,
             params.withdraw ? amount - inputForGas : amount,
